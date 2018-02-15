@@ -25,9 +25,9 @@ import "normalize.css";
 
 const theme = createTheme(
   {
-    primary: "white",
+    primary: "#ccc",
     secondary: "#1F2022",
-    tertiary: "#03A9FC",
+    // tertiary: "#03A9FC",
     quartenary: "#CECECE"
   },
   {
@@ -39,9 +39,13 @@ const theme = createTheme(
 export default class Presentation extends React.Component {
   render() {
     return (
-      <Deck transition={["fade"]} transitionDuration={500} theme={theme} textColor="secondary">
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} fit lineHeight={1} textColor="secondary">
+      <Deck
+        transition={["fade"]}
+        transitionDuration={200}
+        theme={theme}
+      >
+        <Slide>
+          <Heading size={1} fit lineHeight={1}>
             @container {"{}"} query
           </Heading>
           <Appear>
@@ -49,65 +53,43 @@ export default class Presentation extends React.Component {
               in React
             </Text>
           </Appear>
-        </Slide>
-        <Slide transition={["fade"]} bgColor="primary" textColor="secondary">
-          <Text margin="10px 0 0" size={3} fit>
-            Viktor Hubert
-          </Text>
-          <Text margin="10px 0 0" size={3} fit>
-            @ZeeCoder
-          </Text>
-        </Slide>
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} fit lineHeight={1} textColor="secondary">
-            @container queries
-          </Heading>
-          <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
-            open the presentation/index.js file to get started
-          </Text>
           <Resizer fit>
             <Test />
           </Resizer>
         </Slide>
-        <Slide transition={["fade"]} bgColor="tertiary">
-          <Heading size={6} textColor="primary" caps>
-            Typography
-          </Heading>
-          <Heading size={1} textColor="secondary">
-            Heading 1
-          </Heading>
-          <Heading size={2} textColor="secondary">
-            Heading 2
-          </Heading>
-          <Heading size={3} textColor="secondary">
-            Heading 3
-          </Heading>
-          <Heading size={4} textColor="secondary">
-            Heading 4
-          </Heading>
-          <Heading size={5} textColor="secondary">
-            Heading 5
-          </Heading>
-          <Text size={6} textColor="secondary">
-            Standard text
+
+        <Slide bgColor="primary" textColor="secondary" textSize="20">
+          <Text margin="10px 0 0" textSize="80">
+            Viktor Hubert
           </Text>
         </Slide>
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Standard List
+
+        <Slide bgColor="primary" textColor="secondary" textSize="20">
+          <Heading size={1} fit>
+            What is a @container query?
           </Heading>
+        </Slide>
+
+        <Slide bgColor="primary" textColor="secondary">
+          <BlockQuote textColor="secondary">
+            <Quote textColor="secondary">
+              Container queries allow us to change styles based on a target
+              element's size.
+            </Quote>
+          </BlockQuote>
+        </Slide>
+
+        <Slide bgColor="primary">
+          <Heading size={1}>Summary</Heading>
           <List>
-            <ListItem>Item 1</ListItem>
-            <ListItem>Item 2</ListItem>
-            <ListItem>Item 3</ListItem>
-            <ListItem>Item 4</ListItem>
+            <ListItem>one</ListItem>
+            <ListItem>two</ListItem>
           </List>
         </Slide>
-        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-          <BlockQuote>
-            <Quote>Example Quote</Quote>
-            <Cite>Author</Cite>
-          </BlockQuote>
+
+        <Slide bgColor="primary">
+          <Text textSize="50">Viktor Hubert</Text>
+          <Text textSize="50">@ZeeCoder</Text>
         </Slide>
       </Deck>
     );

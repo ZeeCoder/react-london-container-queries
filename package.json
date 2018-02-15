@@ -7,6 +7,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "spectacle": "^4.0.5",
     "spectacle-scripts": "2.0.0"
   },
   "scripts": {
