@@ -11,7 +11,8 @@ import {
   List,
   Quote,
   Slide,
-  Text
+  Text,
+  Appear
 } from "spectacle";
 
 // Import theme
@@ -20,7 +21,7 @@ import Test from "./components/Test";
 import Resizer from "./components/Resizer";
 
 // Require CSS
-require("normalize.css");
+import "normalize.css";
 
 const theme = createTheme(
   {
@@ -35,16 +36,29 @@ const theme = createTheme(
   }
 );
 
-const notes = `
-asd asd asd 
-asd asd sda 
-`;
-
 export default class Presentation extends React.Component {
   render() {
     return (
-      <Deck transition={["fade"]} transitionDuration={500} theme={theme}>
-        <Slide transition={["fade"]} bgColor="primary" notes={notes}>
+      <Deck transition={["fade"]} transitionDuration={500} theme={theme} textColor="secondary">
+        <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={1} fit lineHeight={1} textColor="secondary">
+            @container {"{}"} query
+          </Heading>
+          <Appear>
+            <Text margin="30px 0 0" textSize="60" bold>
+              in React
+            </Text>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary" textColor="secondary">
+          <Text margin="10px 0 0" size={3} fit>
+            Viktor Hubert
+          </Text>
+          <Text margin="10px 0 0" size={3} fit>
+            @ZeeCoder
+          </Text>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} fit lineHeight={1} textColor="secondary">
             @container queries
           </Heading>
