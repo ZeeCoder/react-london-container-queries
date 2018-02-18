@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@zeecoder/cq-demo-utils": "0.0.16",
+    "@zeecoder/cq-demo-utils": "^0.0.18",
+    "@zeecoder/react-container-query": "^2.4.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

@@ -48,7 +48,7 @@ export default class Resizer extends Component {
 }
 
 Resizer.defaultProps = {
-  sequence: [900, 576, 320],
+  sequence: [320, 576, 900],
   frequency: 1500,
   speed: 500
 };
