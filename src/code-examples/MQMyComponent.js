@@ -13,7 +13,7 @@ const mqCSS = `
 `;
 
 const cqCSS = `
-.MyComponent {
+.MyComponent { // ⬅️ The "container"
   background: white;
 
   @container (width > 320px) {

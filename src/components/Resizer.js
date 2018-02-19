@@ -13,6 +13,7 @@ export default class Resizer extends Component {
     };
 
     this.nextInSequence = this.nextInSequence.bind(this);
+    this.renderChildren = this.renderChildren.bind(this);
   }
 
   nextInSequence() {
@@ -36,14 +37,22 @@ export default class Resizer extends Component {
 
   getRootClasses() {
     return {
-      margin: '0 auto',
+      margin: "0 auto",
       transition: `width ${this.props.speed / 1000}s`,
       width: this.props.sequence[this.state.sequenceIndex]
     };
   }
 
+  renderChildren() {
+    if (typeof this.props.children === "function") {
+      return this.props.children(this.props.sequence[this.state.sequenceIndex]);
+    }
+
+    return this.props.children;
+  }
+
   render() {
-    return <div style={this.getRootClasses()}>{this.props.children}</div>;
+    return <div style={this.getRootClasses()}>{this.renderChildren()}</div>;
   }
 }
 

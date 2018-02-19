@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ContainerQuery } from "@zeecoder/cq-demo-utils";
 
@@ -89,48 +89,50 @@ const css = `
 }
 `;
 
-const renderReplies = (props, size) => {
-  if (!props.children) {
-    return null;
+class Comment extends Component {
+  renderReplies(size) {
+    if (!this.props.children) {
+      return null;
+    }
+
+    if (!size || size.width < 750) {
+      return <div className="Comment__show-replies">Show replies</div>;
+    }
+
+    return (
+      <div className="Comment__replies">
+        {this.props.children.map((child, index) => (
+          <div className="Comment__reply" key={index}>
+            {child}
+          </div>
+        ))}
+      </div>
+    );
   }
 
-  if (!size || size.width < 750) {
-    return <div className="Comment__show-replies">Show replies</div>;
-  }
-
-  return (
-    <div className="Comment__replies">
-      {props.children.map((child, index) => (
-        <div className="Comment__reply" key={index}>
-          {child}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const Comment = props => (
-  <ContainerQuery
-    css={css}
-    render={size => {
-      return (
-        <div className="Comment">
-          <div className="Comment__user">
-            <img className="Comment__avatar" src={props.avatar} />
-            <div className="Comment__username">{props.username}</div>
-            <div className="Comment__userhandle">
-              {props.userhandle || props.username}
+  render() {
+    return (
+      <ContainerQuery
+        css={css}
+        render={size => (
+          <div className="Comment">
+            <div className="Comment__user">
+              <img className="Comment__avatar" src={this.props.avatar} />
+              <div className="Comment__username">{this.props.username}</div>
+              <div className="Comment__userhandle">
+                {this.props.userhandle || this.props.username}
+              </div>
+            </div>
+            <div className="Comment__comment-wrapper">
+              <div className="Comment__comment">{this.props.comment}</div>
+              {this.renderReplies(size)}
             </div>
           </div>
-          <div className="Comment__comment-wrapper">
-            <div className="Comment__comment">{props.comment}</div>
-            {renderReplies(props, size)}
-          </div>
-        </div>
-      );
-    }}
-  />
-);
+        )}
+      />
+    );
+  }
+}
 
 Comment.propTypes = {
   avatar: PropTypes.string,

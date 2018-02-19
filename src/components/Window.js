@@ -56,7 +56,15 @@ const css = `
 }
 `;
 
-const renderWindow = props => (
+const renderChildren = (children, width) => {
+  if (typeof children === "function") {
+    return children(width);
+  }
+
+  return children;
+};
+
+const renderWindow = (children, width) => (
   <div className="Window">
     <div className="Window__toolbar">
       <div className="Window__buttons">
@@ -71,16 +79,22 @@ const renderWindow = props => (
         </div>
       </div>
     </div>
-    <div className="Window__content">{props.children}</div>
+    <div className="Window__content">{renderChildren(children, width)}</div>
   </div>
 );
 
 const Window = props => {
   if (Array.isArray(props.width)) {
-    return <Resizer sequence={props.width}>{renderWindow(props)}</Resizer>;
+    return (
+      <Resizer sequence={props.width}>
+        {width => renderWindow(props.children, width)}
+      </Resizer>
+    );
   }
 
-  return <div style={{ width: props.width }}>{renderWindow(props)}</div>;
+  return (
+    <div style={{ width: props.width }}>{renderWindow(props.children)}</div>
+  );
 };
 
 Window.defaultProps = {

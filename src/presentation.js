@@ -20,6 +20,7 @@ import Comment from "./components/Comment";
 import Window from "./components/Window";
 import BackgroundChanger from "./components/BackgroundChanger";
 import * as ExMQMyComponent from "./code-examples/MQMyComponent";
+import MQBackgroundChanger from "./components/MQBackgroundChanger";
 
 const theme = createTheme(
   {
@@ -59,6 +60,8 @@ const Pluto = fixedComment({
 
 // Grid and flexbox works great with container queries, the same way they do with media queries.
 
+const notes = notesArr => notesArr.map(note => `- ${note}`).join("<br>");
+
 export default class Presentation extends React.Component {
   render() {
     return (
@@ -70,7 +73,14 @@ export default class Presentation extends React.Component {
         contentWidth={1500}
         contentHeight={900}
       >
-        <Slide>
+        <Slide
+          notes={notes([
+            "thank you for having me",
+            "My name is Viktor, I work at EventsTag",
+            "At EventsTag we use something called a Container Query for better, easier RWD",
+            "I have a lib for React too, which I'd like to briefly present to you"
+          ])}
+        >
           <Heading size={1} fit lineHeight={1}>
             @container {"{}"} query
           </Heading>
@@ -87,28 +97,26 @@ export default class Presentation extends React.Component {
           </div>
         </Slide>
 
-        <Slide bgColor="primary" textColor="secondary" textSize="20">
-          <Heading size={1} fit>
-            What is a @container query?
-          </Heading>
+        <Slide
+          notes={notes([
+            "let's take a step back first to see what my library is trying to solve"
+          ])}
+        >
+          <Heading>What's the Problem?</Heading>
         </Slide>
 
-        <Slide bgColor="primary" textColor="secondary">
-          <BlockQuote textColor="secondary">
-            <Quote textColor="secondary">
-              Container queries allow you to change styles based on a target
-              element's size.
-            </Quote>
-          </BlockQuote>
-        </Slide>
-
-        <Slide>
+        <Slide
+          notes={notes([
+            "just a very basic example to show you what it's about",
+            "this is doable with media queries"
+          ])}
+        >
           <Window>
             <BackgroundChanger />
           </Window>
         </Slide>
 
-        <Slide>
+        <Slide notes={notes(["this could be achieved with @media queries"])}>
           <CodePane
             lang="less"
             source={ExMQMyComponent.mqCSS}
@@ -118,7 +126,28 @@ export default class Presentation extends React.Component {
           />
         </Slide>
 
-        <Slide>
+        <Slide notes={notes(["The problem"])}>
+          <Window width={[500, 900]}>
+            <MQBackgroundChanger />
+          </Window>
+        </Slide>
+
+        <Slide notes={notes(["let's go back to the MQ example"])}>
+          <CodePane
+            lang="less"
+            source={ExMQMyComponent.mqCSS}
+            margin="20px auto"
+            overflow="overflow"
+            textSize="40px"
+          />
+        </Slide>
+
+        <Slide
+          notes={notes([
+            "some string replace",
+            "one of the main goals were familiar css syntax"
+          ])}
+        >
           <CodePane
             lang="less"
             source={ExMQMyComponent.cqCSS}
@@ -142,7 +171,7 @@ export default class Presentation extends React.Component {
           </Window>
         </Slide>
 
-        <Slide>
+        <Slide notes={notes(["You would probably expect this to work too"])}>
           <Window width={[650, 850, 900, 1100]}>
             <BackgroundChanger>
               <div style={{ margin: "0 100px" }}>
@@ -154,6 +183,54 @@ export default class Presentation extends React.Component {
               </div>
             </BackgroundChanger>
           </Window>
+        </Slide>
+
+        <Slide
+          bgColor="primary"
+          textColor="secondary"
+          notes={notes(["Probably the most abstract definition I could find"])}
+        >
+          <Heading size={1} fit>
+            What is a @container query?
+          </Heading>
+          <Appear>
+            <Text
+              textColor="secondary"
+              bold
+              style={{ transform: "translateY(150px)" }}
+              textSize={70}
+            >
+              Container queries allow you to change styles based on a target
+              element's size.
+            </Text>
+          </Appear>
+        </Slide>
+
+        <Slide
+          notes={notes([
+            `You can basically think of it as a "Component"`,
+            '"container" => historical reasons'
+          ])}
+        >
+          <Heading size={1} fit>
+            What is a Container?
+          </Heading>
+          <List>
+            <Appear>
+              <ListItem>
+                Styling only the queried element itself ➡️ "element query"
+              </ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>Styling descendants too ➡️ "container query"</ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>Any element</ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>A React Component</ListItem>
+            </Appear>
+          </List>
         </Slide>
 
         <Slide>
@@ -168,11 +245,32 @@ export default class Presentation extends React.Component {
           </Window>
         </Slide>
 
+        <Slide
+          notes={notes([
+            "took the liberty to strip out all irrelevant styling to make the CSS easier to digest"
+          ])}
+        >
+          <CodePane
+            lang="js"
+            source={ExMQMyComponent.webpackConfig}
+            margin="20px auto"
+            overflow="overflow"
+            textSize="35px"
+          />
+          <CodePane
+            lang="js"
+            source={ExMQMyComponent.webpackConfig}
+            margin="20px auto"
+            overflow="overflow"
+            textSize="35px"
+          />
+        </Slide>
+
         <Slide bgColor="primary" textSize="20">
           <Heading textColor="tertiary">How does it work?</Heading>
         </Slide>
 
-        <Slide bgColor="primary" textSize="20">
+        <Slide bgColor="primary" textSize="20" notes={[""]}>
           <Text bold textColor="tertiary">
             CSS ➡️ PostCSS ➡️ React Component
           </Text>
@@ -198,7 +296,11 @@ export default class Presentation extends React.Component {
           />
         </Slide>
 
-        <Slide>
+        <Slide
+          notes={notes([
+            "Mention that all the animations were live demos (spectacle)"
+          ])}
+        >
           <CodePane
             lang="js"
             source={ExMQMyComponent.js}
@@ -229,7 +331,14 @@ export default class Presentation extends React.Component {
           <Image src="/img/TweetWICG.png" />
         </Slide>
 
-        <Slide bgColor="primary">
+        <Slide
+          bgColor="primary"
+          notes={notes([
+            "Please give it a try using the online editable demos with codesandbox",
+            "basically codepan for react, where everything I've mentioned is already set up",
+            "If those convince you, feel free to visit the project's GitHub page"
+          ])}
+        >
           <Heading size={2} textColor="tertiary" margin="0 0 130px">
             Thank You
           </Heading>
@@ -241,6 +350,9 @@ export default class Presentation extends React.Component {
           </Text>
           <Text textSize="50" margin="100px 0 0" textColor="secondary">
             https://github.com/ZeeCoder/container-query
+          </Text>
+          <Text textSize="50" margin="10px 0 0" textColor="secondary">
+            https://codesandbox.io/u/ZeeCoder/sandboxes
           </Text>
         </Slide>
       </Deck>
