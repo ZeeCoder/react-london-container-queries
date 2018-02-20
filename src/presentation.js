@@ -63,16 +63,22 @@ const Pluto = fixedComment({
 
 const notes = notesArr => notesArr.map(note => `- ${note}`).join("<br>");
 
-const Container = props => (
-  <div
-    {...props}
-    style={Object.assign({}, props.style || {}, {
-      margin: "0 auto",
-      width: props.width,
-      height: props.height
-    })}
-  />
-);
+const Container = props => {
+  if (window.location.href.indexOf("?presenter") !== -1) {
+    return <div {...props} />;
+  }
+
+  return (
+    <div
+      {...props}
+      style={Object.assign({}, props.style || {}, {
+        margin: "0 auto",
+        width: props.width,
+        height: props.height
+      })}
+    />
+  );
+};
 
 const RegularContainer = props => (
   <Container {...props} width={1500} height="auto" />
@@ -92,9 +98,9 @@ export default class Presentation extends React.Component {
         <Slide
           notes={notes([
             "thank you for having me",
-            "My name is Viktor, I work at EventsTag",
-            "At EventsTag we use something called a Container Query for better, easier RWD",
-            "I have a lib for React too, which I'd like to briefly present to you"
+            "Viktor, eventstag",
+            "use at EventsTag, for responsive design",
+            "talk about what container queries are, what containers are, and about my lib"
           ])}
         >
           <RegularContainer>
@@ -115,26 +121,17 @@ export default class Presentation extends React.Component {
           </RegularContainer>
         </Slide>
 
-        <Slide
-          notes={notes([
-            "let's take a step back first to see what my library is trying to solve"
-          ])}
-        >
+        <Slide>
           <Heading>The Problem</Heading>
         </Slide>
 
-        <Slide
-          notes={notes([
-            "just a very basic example to show you what it's about",
-            "this is doable with media queries"
-          ])}
-        >
+        <Slide notes={notes(["simple", "media queries"])}>
           <Window>
             <BackgroundChanger />
           </Window>
         </Slide>
 
-        <Slide notes={notes(["this could be achieved with @media queries"])}>
+        <Slide>
           <RegularContainer>
             <CodePane
               lang="less"
@@ -146,7 +143,7 @@ export default class Presentation extends React.Component {
           </RegularContainer>
         </Slide>
 
-        <Slide notes={notes(["The problem"])}>
+        <Slide>
           <Window width={[500, 900]}>
             <MQBackgroundChanger />
           </Window>
@@ -164,12 +161,7 @@ export default class Presentation extends React.Component {
           </RegularContainer>
         </Slide>
 
-        <Slide
-          notes={notes([
-            "some string replace",
-            "one of the main goals were familiar css syntax"
-          ])}
-        >
+        <Slide notes={notes(["string replace", "familiar css syntax"])}>
           <RegularContainer>
             <CodePane
               lang="less"
@@ -195,7 +187,7 @@ export default class Presentation extends React.Component {
           </Window>
         </Slide>
 
-        <Slide notes={notes(["You would probably expect this to work too"])}>
+        <Slide notes={notes(["expected to work"])}>
           <Window width={[650, 850, 900, 1100]}>
             <BackgroundChanger>
               <div style={{ margin: "0 100px" }}>
@@ -212,7 +204,7 @@ export default class Presentation extends React.Component {
         <Slide
           bgColor="primary"
           textColor="secondary"
-          notes={notes(["Probably the most abstract definition I could find"])}
+          notes={notes(["what it boils down to"])}
         >
           <RegularContainer>
             <Heading size={1} fit>
@@ -232,33 +224,20 @@ export default class Presentation extends React.Component {
           </RegularContainer>
         </Slide>
 
-        <Slide
-          notes={notes([
-            `You can basically think of it as a "Component"`,
-            '"container" => historical reasons'
-          ])}
-        >
+        <Slide>
           <RegularContainer>
-            <Heading size={1} fit>
+            <Heading size={1} fit margin="0 0 60px">
               What is a Container?
             </Heading>
             <List>
-              <Appear>
-                <ListItem>
-                  Styling only the queried element itself ➡️ "element query"
-                </ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>
-                  Styling descendants too ➡️ "container query"
-                </ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>Any element</ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>A React Component</ListItem>
-              </Appear>
+              <ListItem margin="15px 0 0">
+                Styling only the queried element itself ➡️ "element query"
+              </ListItem>
+              <ListItem margin="15px 0 0">
+                Styling descendants too ➡️ "container query"
+              </ListItem>
+              <ListItem margin="15px 0 0">Any element</ListItem>
+              <ListItem margin="15px 0 0">A React Component</ListItem>
             </List>
           </RegularContainer>
         </Slide>
@@ -300,11 +279,7 @@ export default class Presentation extends React.Component {
           </RegularContainer>
         </Slide>
 
-        <Slide
-          notes={notes([
-            "Mention that all the animations were live demos (spectacle)"
-          ])}
-        >
+        <Slide notes={notes(["all are live demos (spectacle)"])}>
           <CodePane
             lang="js"
             source={ExMQMyComponent.js}
@@ -328,8 +303,9 @@ export default class Presentation extends React.Component {
 
         <Slide
           notes={notes([
-            "took the liberty to strip out all irrelevant styling to make the CSS easier to digest",
-            "json stats could be passed to the runtime differently too"
+            "stripped out bits",
+            "could handle json stats differently",
+            "webpack loader"
           ])}
         >
           <div style={{ display: "flex" }}>
@@ -359,18 +335,10 @@ export default class Presentation extends React.Component {
               Highlights
             </Heading>
             <List style={{ transform: "translateY(50px)" }}>
-              <Appear>
-                <ListItem>Familiar syntax</ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>Made for React</ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>ResizeObserver</ListItem>
-              </Appear>
-              <Appear>
-                <ListItem>CSS preprocessing</ListItem>
-              </Appear>
+              <ListItem margin="15px 0 0">Familiar syntax</ListItem>
+              <ListItem margin="15px 0 0">Made for React</ListItem>
+              <ListItem margin="15px 0 0">ResizeObserver</ListItem>
+              <ListItem margin="15px 0 0">CSS preprocessing</ListItem>
             </List>
           </Container>
         </Slide>
@@ -385,9 +353,12 @@ export default class Presentation extends React.Component {
 
         <Slide>
           <RegularContainer>
-            <Heading textColor="tertiary" size={2} fit>
-              Houdini (Layout API)
+            <Heading textColor="tertiary" size={2}>
+              Houdini
             </Heading>
+            <Text textSize={35} margin="10px 0 0" textColor="secondary">
+              (Layout API)
+            </Text>
           </RegularContainer>
         </Slide>
 
@@ -396,7 +367,7 @@ export default class Presentation extends React.Component {
             <Heading size={2} textColor="tertiary">
               WICG!
             </Heading>
-            <Text margin="30px auto 40px" textColor="secondary" textSize={30}>
+            <Text margin="30px auto 80px" textColor="secondary" textSize={30}>
               (Web Incubator Community Group)
             </Text>
             <Image src="/img/TweetWICG.png" />
@@ -406,10 +377,10 @@ export default class Presentation extends React.Component {
         <Slide
           bgColor="primary"
           notes={notes([
-            "Now there's a lot more to all this, but this is all I can fit in 20 minutes",
-            "Please give it a try using the online editable demos with codesandbox",
-            "basically codepan for react, where everything I've mentioned is already set up",
-            "Thanks for my coworkers for the tips and my lovely fiancee for bearing with me this weekend as I put together these slides"
+            "so much more",
+            "demos are recommended",
+            "coworkers",
+            "fiancee"
           ])}
         >
           <RegularContainer>
@@ -424,10 +395,10 @@ export default class Presentation extends React.Component {
             </Text>
             <Container width={1150} style={{ textAlign: "left" }}>
               <Text textSize="50" margin="100px 0 0" textColor="secondary">
-                https://github.com/ZeeCoder/container-query
+                https://codesandbox.io/u/ZeeCoder/sandboxes
               </Text>
               <Text textSize="50" margin="10px 0 0" textColor="secondary">
-                https://codesandbox.io/u/ZeeCoder/sandboxes
+                https://github.com/ZeeCoder/container-query
               </Text>
               <Text textSize="50" margin="10px 0 0" textColor="secondary">
                 https://github.com/WICG/cq-usecases
